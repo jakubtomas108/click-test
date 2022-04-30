@@ -5,11 +5,7 @@ import { store } from "../../store";
 
 export const ItemListButton = observer<React.FC>(() => {
   return (
-    <ItemListButtonStyled
-      onClick={() => {
-        store.isItemListOpen = true;
-      }}
-    >
+    <ItemListButtonStyled onClick={() => store.setOpenItemList(true)}>
       Předměty
     </ItemListButtonStyled>
   );
