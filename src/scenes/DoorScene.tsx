@@ -19,11 +19,11 @@ export const DoorScene = observer<React.FC>(() => {
   const openDoor = () => {
     if (store.hasItem(EItems.jacket) && store.hasItem(EItems.key)) {
       store.promptSelectItem((item: EItems) => {
-        if (!store.hasMaskOn) {
-          return alert("Nejprve si musím nasadit roušku.");
-        }
-
         if (item === EItems.key) {
+          if (!store.hasMaskOn) {
+            return alert("Nejprve si musím nasadit roušku.");
+          }
+
           alert("Hurá, jdeme ven!");
           localStorage.setItem("didPlay", "true");
           document.body.innerHTML = `<div style="font-size: 64px; text-align: center;">Vyhrál jsi</div>`;
