@@ -12,6 +12,11 @@ export enum EItems {
   key = "key",
 }
 
+export const itemMap: Record<EItems, any> = {
+  [EItems.jacket]: { title: "Bunda" },
+  [EItems.key]: { title: "Klíče" },
+};
+
 export enum EScenes {
   entry = "entry",
   hanger = "hanger",
@@ -20,7 +25,7 @@ export enum EScenes {
   cabinet = "cabinet",
 }
 
-export const sceneMap: Record<string, React.ReactElement> = {
+export const sceneMap: Record<EScenes, React.ReactElement> = {
   [EScenes.entry]: <EntryScene />,
   [EScenes.hanger]: <HangerScene />,
   [EScenes.washroom]: <WashroomScene />,
@@ -29,8 +34,12 @@ export const sceneMap: Record<string, React.ReactElement> = {
 };
 
 export class Store {
+  isItemListOpen: boolean = false;
+
   scene: EScenes = EScenes.entry;
   items: EItems[] = [];
+
+  selectItemCallback: any;
 
   constructor() {
     makeAutoObservable(this);
@@ -46,6 +55,23 @@ export class Store {
 
   setScene = (scene: EScenes) => {
     if (this.scene !== scene) this.scene = scene;
+  };
+
+  promptSelectItem = (callback: any) => {
+    this.selectItemCallback = callback;
+    this.isItemListOpen = true;
+  };
+
+  selectItem = (item: EItems) => {
+    if (this.isItemListOpen && this.selectItemCallback) {
+      this.selectItemCallback(item);
+      this.closeItemList();
+    }
+  };
+
+  closeItemList = () => {
+    this.isItemListOpen = false;
+    this.selectItemCallback = undefined;
   };
 }
 

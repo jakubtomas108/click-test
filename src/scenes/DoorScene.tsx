@@ -18,8 +18,16 @@ export const DoorScene = observer<React.FC>(() => {
 
   const openDoor = () => {
     if (store.hasItem(EItems.jacket) && store.hasItem(EItems.key)) {
-      alert("Hurá, jdeme ven!");
-      document.body.innerHTML = `<div style="font-size: 64px; text-align: center;">Vyhrál jsi</div>`;
+      store.promptSelectItem((item: EItems) => {
+        if (item === EItems.key) {
+          alert("Hurá, jdeme ven!");
+          document.body.innerHTML = `<div style="font-size: 64px; text-align: center;">Vyhrál jsi</div>`;
+          return;
+        } else {
+          alert("S tímhle dveře neodemču!");
+          return;
+        }
+      });
       return;
     }
 
