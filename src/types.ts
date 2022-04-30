@@ -4,6 +4,7 @@ export enum EItems {
   jacket = "jacket",
   key = "key",
   potion = "potion",
+  mask = "mask",
 }
 
 export enum EScenes {

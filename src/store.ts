@@ -5,15 +5,17 @@ import { EItems, EScenes } from "./types";
 import { itemMap } from "./itemMap";
 import { sceneMap } from "./sceneMap";
 
-const didPlay = localStorage.getItem("didPlay");
-
 export class Store {
+  debug: boolean = false;
+
   isItemListOpen: boolean = false;
 
   scene: EScenes = EScenes.entry;
-  items: EItems[] = !!didPlay ? [EItems.potion] : [];
+  items: EItems[] = [EItems.mask];
 
   selectItemCallback: any;
+
+  hasMaskOn = false;
 
   constructor() {
     makeAutoObservable(this);

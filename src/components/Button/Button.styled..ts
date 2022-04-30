@@ -1,8 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { IButtonProps } from "./Button";
 
 export const ButtonStyled = styled.div<IButtonProps>`
+  ${({ debug }) =>
+    debug &&
+    css`
+      border: 2px solid;
+    `}
+
   position: absolute;
   width: ${({ width }) => (width ? width : "100px")};
   height: ${({ height }) => (height ? height : "100px")};
