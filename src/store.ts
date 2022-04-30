@@ -1,51 +1,9 @@
-import React from "react";
 import { makeAutoObservable } from "mobx";
 
-import { CabinetScene } from "./scenes/CabinetScene";
-import { DoorScene } from "./scenes/DoorScene";
-import { EntryScene } from "./scenes/EntryScene";
-import { HangerScene } from "./scenes/HangerScene";
-import { WashroomScene } from "./scenes/WashroomScene";
+import { EItems, EScenes } from "./types";
 
-export enum EItems {
-  jacket = "jacket",
-  key = "key",
-  potion = "potion",
-}
-
-interface IItemProps {
-  title: string;
-  callback?: (store: Store) => void;
-}
-
-export const itemMap: Record<EItems, IItemProps> = {
-  [EItems.jacket]: { title: "Bunda" },
-  [EItems.key]: { title: "Klíče" },
-  [EItems.potion]: {
-    title: "Lektvar",
-    callback: (store: Store) => {
-      store.addItem(EItems.jacket);
-      store.addItem(EItems.key);
-      store.removeItem(EItems.potion);
-    },
-  },
-};
-
-export enum EScenes {
-  entry = "entry",
-  hanger = "hanger",
-  washroom = "washroom",
-  door = "door",
-  cabinet = "cabinet",
-}
-
-export const sceneMap: Record<EScenes, React.ReactElement> = {
-  [EScenes.entry]: <EntryScene />,
-  [EScenes.hanger]: <HangerScene />,
-  [EScenes.washroom]: <WashroomScene />,
-  [EScenes.door]: <DoorScene />,
-  [EScenes.cabinet]: <CabinetScene />,
-};
+import { itemMap } from "./itemMap";
+import { sceneMap } from "./sceneMap";
 
 const didPlay = localStorage.getItem("didPlay");
 
@@ -104,3 +62,5 @@ export class Store {
 }
 
 export const store = new Store();
+
+export { EItems, EScenes, itemMap, sceneMap };
